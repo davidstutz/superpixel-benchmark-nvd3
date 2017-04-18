@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Superpixel Benchmark &mdash; Qualitative Results</title>
+
+	<script type='text/javascript' src='js/jquery-11.0.min.js'></script>	
+	<script type='text/javascript' src='js/unitegallery.min.js'></script>	
+
+	<link rel='stylesheet' href='css/unite-gallery.css' type='text/css' />
+	<link rel='stylesheet' href='css/bootstrap.min.css' type='text/css' />
+
+	<script type='text/javascript' src='js/ug-theme-tiles.js'></script>
+</head>
+<body>
+	<div class="container">
+		<h1>Superpixel Benchmark &mdash; Qualitative Results</h1>
+		<div class="row">
+            <div class="col-md-4">
+				<div class="well well-sm">
+                    <ul class="nav nav-well">
+                        <li><a href="#bsds500">BSDS500</a></li>
+                        <li><a href="#nyuv2">NYUV2</a></li>
+                        <li><a href="#sbd">SBD</a></li>
+                        <li><a href="#sunrgbd">SUNRGBD</a></li>
+                        <li><a href="#fash">Fash</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8">
+				This page contains qualitative results as presented in [1] on several different datasets.
+				<b>Check the corresponding project page for details: <a href="http://davidstutz.de/projects/superpixel-benchmark/">Superpixel Benchmark</a>.</b>
+				Please also do not link to this page directly, instead link and share the project page. The source code of this page can also be found on GitHub,
+				click the banner in the top left.
+				
+				<br><br>
+				[1] <u><a href="http://davidstutz.de/">D. Stutz</a></u>, A. Hermans, B. Leibe. Superpixels: An Evaluation of the State-of-the-Art. CoRR, 2016.
+            </div>
+        </div>
+
+		<p class="alert alert-info">
+			Note that loading the images may take a moment.
+		</p>
+
+		<!--<div id="summary-tiles"></div>-->
+		<h3><a id="bsds500"></a>BSDS500</h3>
+		<div id="bsds500-tiles"></div>
+		<h3><a id="nyuv2"></a>NYUV2</h3>
+		<div id="nyuv2-tiles"></div>
+		<h3><a id="sbd"></a>SBD</h3>
+		<div id="sbd-tiles"></div>
+		<h3><a id="sunrgbd"></a>SUNRGBD</h3>
+		<div id="sunrgbd-tiles"></div>
+		<h3><a id="fash"></a>Fash</h3>
+		<div id="fash-tiles"></div>
+	</div>
+	
+	<script type="text/javascript">
+		var datasets = ['bsds500', 'nyuv2', 'sbd', 'sunrgbd', 'fash'];
+		var algorithms = [
+			'ccs',
+			'cis',
+			'crs', 
+			'cw', 
+			'eams', 
+			'ergc', 
+			'ers', 
+			'etps', 
+			'fh', 
+			'lsc', 
+			'mss',
+			'nc', 
+			'pb', 
+			'pf',
+			'poise', 
+			'preslic', 
+			'qs', 
+			//'refh', 
+			//'reseeds',
+			'rw', 
+			'seaw',
+			'seeds', 
+			'slic', 
+			'slic', 
+			'tp', 
+			'tps', 
+			'vc', 
+			//'vlslic', 
+			'w', 
+			'wp'
+		];
+		var images = {
+			'bsds500': ['35028', '175083', '208078'],
+			'nyuv2': ['00000285', '00000561', '00000977', '00001297'],
+			'sbd': ['0004774', '0105146', '1100008', '6000067'],
+			'sunrgbd': ['00004732', '00007477'],
+			'fash': ['010', '132'],
+		};
+
+		for (var i = 0; i < algorithms.length; i++) {
+			for (var j = 0; j < datasets.length; j++) {
+				for (var k = 0; k < images[datasets[j]].length; k++) {
+					if (datasets[j] != 'sunrgbd' || (algorithms[i] != 'nc' && algorithms[i] != 'seaw')) {
+						$('#' + datasets[j] + '-tiles').append('<img alt="' + algorithms[i].toUpperCase() + ' ' + datasets[j].toUpperCase() + '" src="images/' + datasets[j] + '/' + algorithms[i] + '_' + images[datasets[j]][k] + '_contours.png" \
+							data-image="images/' + datasets[j] + '/' + algorithms[i] + '_' + images[datasets[j]][k] + '_contours.png" height="50" style="display:none">');
+					}
+				}
+			}
+		}
+
+		//for (var i = 0; i < algorithms.length; i++) {
+		//	$('#summary-tiles').append('<img alt="' + algorithms[i].toUpperCase() + ' BSDS500" src="http://davidstutz.de/wordpress/wp-content/uploads/2017/04/' + algorithms[i] + '_35028_contours.png" \
+		//		data-image="http://davidstutz.de/wordpress/wp-content/uploads/2017/04/' + algorithms[i] + '_35028_contours.png" height="50" width="100" style="display:none">');
+		//}
+
+		$(document).ready(function(){
+			for (var i = 0; i < datasets.length; i++) {
+				$('#' + datasets[i] + '-tiles').unitegallery({
+					tile_enable_textpanel :true,
+					tile_textpanel_title_text_align: 'center',
+					tile_textpanel_always_on: true,
+					tiles_col_width: '21',
+				});
+			}
+
+			//$('#summary-tiles').unitegallery({
+			//	tile_enable_textpanel :true,
+			//	tile_textpanel_title_text_align: 'center',
+			//	tile_textpanel_always_on: true,
+			//	tiles_col_width: '21',
+			//});
+		});
+	</script>
+	<hr>
+    <div class="text-muted">Copyright (c) 2015 <a href="http://davidstutz.de" target="_blank">David Stutz</a></div>
+	<a href="https://github.com/davidstutz/superpixel-benchmark-nvd3"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
+</body>
+</html>
